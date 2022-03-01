@@ -1,35 +1,54 @@
 var mongoose = require('mongoose');
 
+const emptyPlayer = {
+    battletag: { type: String },
+    role: { type: String },
+    sr: { type: Number },
+    image: { type: String }
+};
+const emptyTeam = {
+    slot1: {},
+    slot2: {},
+    slot3: {},
+    slot4: {},
+    slot5: {},
+    slot6: {}
+};
+
 var scrimSchema = mongoose.Schema({
     user: {
         type: String,
         required: true
     },
     team_1: {
-        type: [{
-            battletag: { type: String },
-            role: { type: String },
-            sr: { type: Number },
-            image: { type: String }
-        }],
-        default: []
+        type: emptyTeam,
+        default: {
+            slot1: null,
+            slot2: null,
+            slot3: null,
+            slot4: null,
+            slot5: null,
+            slot6: null
+        }
     },
     team_2: {
-        type: [{
-            battletag: { type: String },
-            role: { type: String },
-            sr: { type: Number },
-            image: { type: String }
-        }],
-        default: []
+        type: emptyTeam,
+        default: {
+            slot1: null,
+            slot2: null,
+            slot3: null,
+            slot4: null,
+            slot5: null,
+            slot6: null
+        }
     },
     player_count: {
         type: Number,
         default: 0
     },
     best_of: {
-        type: Number,
-        enum: [1, 3, 5],
+        type: String,
+        enum: ['BO1', 'BO3', 'BO5'],
         required: true
     },
     maps: {
@@ -50,22 +69,18 @@ var scrimSchema = mongoose.Schema({
     }
 })
 
-scrimSchema.methods.joinTeam1 = function(battletag, role, roleSR, image) {
+scrimSchema.methods.joinTeam1 = function(battletag, slot, roleSR, image) {
     var sr = parseInt(roleSR);
     if( sr <= this.sr_higher && sr >= this.sr_lower ){
         var team1 = this.team_1;
-        var numRole = 0;
-        for(var i = 0; i < team1.length; i++){
-            if(team1[i].role === role) numRole += 1;
-        }
-        if(numRole === 2) return false;
+        if(team1[slot] !== null) return false;
         else {
-            this.team_1 = [...this.team_1, { 
+            this.team_1[slot] = { 
                 battletag: battletag,
-                role: role,
                 sr: roleSR,
                 image: image
-            }];
+            };
+            this.player_count += 1;
             return true;
         }
     } else return false;

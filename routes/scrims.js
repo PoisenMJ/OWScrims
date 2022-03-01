@@ -16,7 +16,7 @@ router.post("/create", authCheck, (req, res, next) => {
             sr_higher: req.body.maxSR,
             region: req.body.region
         });
-        newScrim.joinTeam1(user.battletag, "tank", user.tankSR, user.image);
+        newScrim.joinTeam1(user.battletag, "slot1", user.tankSR, user.image);
 
         newScrim.save((err, saved) => {
             console.log(err);
@@ -29,7 +29,7 @@ router.post("/create", authCheck, (req, res, next) => {
 
 router.get("/scrim/:scrimID", (req, res, next) => {
     var scrimID = req.params.scrimID;
-    Scrim.findById(scrimID).then((err, scrim) => {
+    Scrim.findById(scrimID).then((scrim, err) => {
         if(err) return res.json({ success: false });
         else return res.json({ success: true, scrim });
     })

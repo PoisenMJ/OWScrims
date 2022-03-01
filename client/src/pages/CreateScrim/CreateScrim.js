@@ -64,9 +64,9 @@ const CreateScrim = () => {
     // WHEN MAPS CHANGE
     // UPDATE BO
     useEffect(() => {
-        if(maps.length === 1) inputUpdate(formTypes.BO, 1);
-        else if(maps.length === 3) inputUpdate(formTypes.BO, 3);
-        else if(maps.length === 5) inputUpdate(formTypes.BO, 5);
+        if(maps.length === 1) inputUpdate(formTypes.BO, 'BO1');
+        else if(maps.length === 3) inputUpdate(formTypes.BO, 'BO3');
+        else if(maps.length === 5) inputUpdate(formTypes.BO, 'BO5');
         else inputUpdate(formTypes.BO, 0);
     }, [maps])
 
@@ -139,7 +139,7 @@ const CreateScrim = () => {
                             <Col className="col-3">
                                 <img onClick={event => updateMaps("kings-row")} className={"img-fluid create-scrim-image"+mapPickedClass("kings-row")} src={require("../../assets/images/kings-row.webp")}/></Col>
                             <Col className="col-3">
-                                <img onClick={event => updateMaps("lijiang")} className={"img-fluid create-scrim-image"+mapPickedClass("lijiang")} src={require("../../assets/images/lijiang-tower.webp")}/></Col>
+                                <img onClick={event => updateMaps("lijiang")} className={"img-fluid create-scrim-image"+mapPickedClass("lijiang")} src={require("../../assets/images/lijiang.webp")}/></Col>
                         </Row>
                         <Row className="g-0">
                             <Col className="col-3">
@@ -155,24 +155,24 @@ const CreateScrim = () => {
                             <Col className="col-3">
                                 <img onClick={event => updateMaps("route-66")} className={"img-fluid create-scrim-image"+mapPickedClass("route-66")} src={require("../../assets/images/route-66.webp")}/></Col>
                             <Col className="col-3">
-                                <img onClick={event => updateMaps("anubis")} className={"img-fluid create-scrim-image"+mapPickedClass("anubis")} src={require("../../assets/images/temple-of-anubis.webp")}/></Col>
+                                <img onClick={event => updateMaps("anubis")} className={"img-fluid create-scrim-image"+mapPickedClass("anubis")} src={require("../../assets/images/anubis.webp")}/></Col>
                             <Col className="col-3">
-                                <img onClick={event => updateMaps("volskaya")} className={"img-fluid create-scrim-image"+mapPickedClass("volskaya")} src={require("../../assets/images/volskaya-industries.webp")}/></Col>
+                                <img onClick={event => updateMaps("volskaya")} className={"img-fluid create-scrim-image"+mapPickedClass("volskaya")} src={require("../../assets/images/volskaya.webp")}/></Col>
                             <Col className="col-3">
-                                <img onClick={event => updateMaps("gibraltar")} className={"img-fluid create-scrim-image"+mapPickedClass("gibraltar")} src={require("../../assets/images/watchpoint-gibraltar.webp")}/></Col>
+                                <img onClick={event => updateMaps("gibraltar")} className={"img-fluid create-scrim-image"+mapPickedClass("gibraltar")} src={require("../../assets/images/gibraltar.webp")}/></Col>
                         </Row>
                     </Row>
                 </Col>
             </Row>
             <Row className="mx-auto" style={{width: "50%", marginTop: "16px"}}>
                 <Col className="col-4 mx-auto">
-                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf == 1 && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-yellow)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 1</span></div>
+                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf === 'BO1' && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-yellow)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 1</span></div>
                 </Col>
                 <Col className="col-4 mx-auto">
-                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf == 3 && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-pink)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 3</span></div>
+                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf === 'BO3' && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-pink)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 3</span></div>
                 </Col>
                 <Col className="col-4 mx-auto">
-                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf == 5 && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-purple)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 5</span></div>
+                    <div className={"d-xl-flex justify-content-xl-center align-items-xl-center "+(state.bestOf === 'BO5' && "scrim-best-of-selected")} style={{padding: "14px 20px", backgroundColor: "var(--bs-purple)"}}><span style={{fontSize: "20px", backgroundColor: "rgba(255,193,7,0)"}}>BEST OF 5</span></div>
                 </Col>
             </Row>
             <Row className="mx-auto" style={{width: "50%", marginTop: "16px"}}>
