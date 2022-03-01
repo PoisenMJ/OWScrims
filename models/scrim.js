@@ -66,6 +66,13 @@ var scrimSchema = mongoose.Schema({
     region: {
         type: String,
         required: true
+    },
+    public: {
+        type: Boolean,
+        default: true
+    },
+    private_code: {
+        type: String    
     }
 })
 

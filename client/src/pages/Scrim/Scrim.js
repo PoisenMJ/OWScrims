@@ -12,7 +12,7 @@ import { FaSignOutAlt } from 'react-icons/fa';
 import { getScrim } from '../../controllers/scrim';
 import { AuthContext } from '../../services/Auth';
 
-import { srToRank } from '../../util/overwatchUtil';
+import { srToRank, roundedToFixed } from '../../util/overwatchUtil';
 
 const teamArray = ['slot1', 'slot2', 'slot3', 'slot4', 'slot5', 'slot6'];
 
@@ -51,11 +51,9 @@ const Scrim = () => {
         fetchScrim();
     }, [])
 
-    const roundedToFixed = (input) => (Math.round(input * 10) / 10).toFixed(1);
-
-    const emptyRoleLeft = (roleImage) => {
+    const emptyRoleLeft = (roleImage, indexKey) => {
         return (
-            <Row className="row scrim-empty-role scrim-left-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
+            <Row className="row scrim-empty-role scrim-left-team scrim" key={indexKey} style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
                 <Col className="col-1 col-md-2 col-lg-2 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-end align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
                 <Col className="col-9 d-grid me-auto"><span className="scrim-empty-role-title" >Click to take role</span><span className="scrim-empty-role-description">Requirement {roundedToFixed(scrimData.minSR/1000)}-{roundedToFixed(scrimData.maxSR/1000)}K</span></Col>
             </Row>
@@ -63,7 +61,7 @@ const Scrim = () => {
     }
     const ownRoleLeft = (roleImage, image, battletag, sr) => {
         return (
-            <Row className="scrim-left-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
+            <Row className="scrim-left-team scrim" key={battletag} style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
                 <Col className="col-1 col-md-2 col-lg-2 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-end align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
                 <Col className="col-2 d-lg-flex d-xl-flex me-auto justify-content-lg-center align-items-lg-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
                 <Col className="col-11 col-md-6 col-lg-6 col-xl-7 col-xxl-7 d-grid me-auto"><span className="text-truncate" data-bs-toggle="tooltip" data-bss-tooltip="">{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className={srToRank(parseInt(sr))+"-color"}>{sr}</span></Col>
@@ -72,25 +70,27 @@ const Scrim = () => {
         )
     }
     const otherRoleLeft = (roleImage, image, battletag, sr) => {
-        <Row className="scrim-left-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingRight: "6px", paddingLeft: "6px"}}>
-            <Col className="col-1 col-md-2 col-lg-2 col-xl-1 col-xxl-1 d-md-flex d-xl-flex justify-content-md-end align-items-md-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
-            <Col className="col-2 d-md-flex d-xl-flex me-auto justify-content-md-center align-items-md-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
-            <Col className="col-11 col-md-8 col-lg-8 col-xl-9 col-xxl-9 d-grid me-auto"><span className="text-truncate mt-auto" data-bs-toggle="tooltip" title="Nightbot">{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className="grandmaster-color">{sr}</span></Col>
-        </Row>
+        return (
+            <Row className="scrim-left-team scrim" key={battletag} style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingRight: "6px", paddingLeft: "6px"}}>
+                <Col className="col-1 col-md-2 col-lg-2 col-xl-1 col-xxl-1 d-md-flex d-xl-flex justify-content-md-end align-items-md-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
+                <Col className="col-2 d-md-flex d-xl-flex me-auto justify-content-md-center align-items-md-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
+                <Col className="col-11 col-md-8 col-lg-8 col-xl-9 col-xxl-9 d-grid me-auto"><span className="text-truncate mt-auto" data-bs-toggle="tooltip" title="Nightbot">{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className="grandmaster-color">{sr}</span></Col>
+            </Row>
+        )
     }
 
 
-    const emptyRoleRight = (roleImage) => {
+    const emptyRoleRight = (roleImage, indexKey) => {
         return (
-            <Row className="scrim-empty-role scrim-right-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
+            <Row className="scrim-empty-role scrim-right-team scrim" key={indexKey} style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
                 <Col className="col-11 col-md-10 col-lg-11 col-xl-11 col-xxl-11 text-end d-grid me-auto"><span className="scrim-empty-role-title" >Click to take role</span><span className="scrim-empty-role-description" >Requirement {roundedToFixed(scrimData.minSR/1000)}-{roundedToFixed(scrimData.maxSR/1000)}K</span></Col>
-                <Col className="col-1 col-md-2 col-lg-1 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-start align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={SUPPORT} style={{width: "35px"}}/></Col>
+                <Col className="col-1 col-md-2 col-lg-1 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-start align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
             </Row>
         )
     }
     const ownRoleRight = (roleImage, image, battletag, sr) => {
         return (
-            <Row className="scrim-right-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
+            <Row className="scrim-right-team scrim" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingLeft: "6px", paddingRight: "6px"}}>
                 <Col className="col-2 d-lg-flex d-xl-flex me-auto justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style={{transform: "rotate(180deg)"}}><Button variant="none" size="sm" className="leave-scrim-btn" style={{padding: "0", backgroundColor: "rgba(186,68,79,0)", width: "42px", borderRadius: "50%"}}><FaSignOutAlt className="fs-1" style={{backgroundColor: "rgba(220,53,69,0)", color: "var(--bs-gray-500)"}}/></Button></Col>
                 <Col className="col-7 col-md-6 col-lg-6 col-xl-7 col-xxl-7 d-flex flex-column me-auto justify-content-lg-center" style={{textAlign: "right"}}><span className="text-truncate" >{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className={srToRank(parseInt(sr))+"-color"} >{sr}</span></Col>
                 <Col className="col-2 d-lg-flex d-xl-flex me-auto justify-content-lg-center align-items-lg-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
@@ -99,11 +99,13 @@ const Scrim = () => {
         )
     }
     const otherRoleRight = (roleImage, image, battletag, sr) => {
-        <Row className="scrim-right-team" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingRight: "6px", paddingLeft: "6px"}}>
-            <Col className="col-7 col-md-8 col-lg-8 col-xl-9 col-xxl-9 d-flex flex-column me-auto justify-content-lg-center" style={{textAlign: "right"}}><span className="text-truncate" >{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className={srToRank(parseInt(sr))+"-color"} >{sr}</span></Col>
-            <Col className="col-2 d-lg-flex d-xl-flex me-auto justify-content-lg-center align-items-lg-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
-            <Col className="col-1 col-md-2 col-lg-1 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-start align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
-        </Row>
+        return (
+            <Row className="scrim-right-team scrim" style={{paddingTop: "8px", paddingBottom: "8px", backgroundColor: "rgba(255,255,255,0.17)", marginBottom: "10px", paddingRight: "6px", paddingLeft: "6px"}}>
+                <Col className="col-7 col-md-8 col-lg-8 col-xl-9 col-xxl-9 d-flex flex-column me-auto justify-content-lg-center" style={{textAlign: "right"}}><span className="text-truncate" >{battletag.split('#')[0]}<span className="battle-tag-number">#{battletag.split('#')[1]}</span></span><span className={srToRank(parseInt(sr))+"-color"} >{sr}</span></Col>
+                <Col className="col-2 d-lg-flex d-xl-flex me-auto justify-content-lg-center align-items-lg-center justify-content-xl-center"><img src={image} style={{height: "50px"}}/></Col>
+                <Col className="col-1 col-md-2 col-lg-1 col-xl-1 col-xxl-1 d-lg-flex d-xl-flex justify-content-lg-start align-items-lg-center justify-content-xl-center align-items-xl-center"><img src={roleImage} style={{width: "35px"}}/></Col>
+            </Row>
+        )
     }
 
     return (
@@ -111,7 +113,7 @@ const Scrim = () => {
             <Row>
                 <Col className="d-xl-flex justify-content-evenly align-items-xl-center">
                     <Row>
-                        <Col className="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center align-items-xl-center">
+                        <Col className="col-auto d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center align-items-xl-center">
                             <span style={{fontSize: "40px"}}>{scrimData.region}</span>
                         </Col>
                         <Col className="d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center">
@@ -129,12 +131,12 @@ const Scrim = () => {
             <Row>
                 <Col className="col-4" style={{backgroundColor: "rgba(255,255,255,0)"}}>
                     {teamArray.map((slot, index) => {
-                        var ROLE = (index <= 2) ? TANK : (index <= 4) ? DPS : SUPPORT;
+                        var ROLE = (index <= 1) ? TANK : (index <= 3) ? DPS : SUPPORT;
                         return (
-                        scrimData.team1[slot] ?
-                                (battletag === scrimData.team1[slot].battletag) ?
+                            scrimData.team1[slot] ?
+                                ((battletag === scrimData.team1[slot].battletag) ?
                                 ownRoleLeft(ROLE, scrimData.team1[slot].image, scrimData.team1[slot].battletag, scrimData.team1[slot].sr) :
-                                otherRoleLeft(ROLE, scrimData.team1[slot].image, scrimData.team1[slot].battletag, scrimData.team1[slot].sr)
+                                otherRoleLeft(ROLE, scrimData.team1[slot].image, scrimData.team1[slot].battletag, scrimData.team1[slot].sr))
                             :emptyRoleLeft(ROLE)
                         )
                     })}
@@ -155,7 +157,7 @@ const Scrim = () => {
                 </Col>
                 <Col className="col-4" style={{backgroundColor: "rgba(255,255,255,0)"}}>
                     {teamArray.map((slot, index) => {
-                        var ROLE = (index <= 2) ? TANK : (index <= 4) ? DPS : SUPPORT;
+                        var ROLE = (index <= 1) ? TANK : (index <= 3) ? DPS : SUPPORT;
                         return (
                             scrimData.team2[slot] ?
                                 (battletag === scrimData.team2[slot].battletag) ?

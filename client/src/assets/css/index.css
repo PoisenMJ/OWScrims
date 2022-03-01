@@ -55,7 +55,9 @@
     transition: 0.15s !important;
     cursor: pointer;
 }
-
+.scrim{
+    cursor: pointer;
+}
 .grandmaster-color {
     color: #c2bb99;
 }
