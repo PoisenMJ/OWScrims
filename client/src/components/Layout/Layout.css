@@ -1,0 +1,7 @@
+#layout-container{
+    width: 100%;
+    min-width: 100%;
+    background-color: var(--bs-gray-800);
+    height: auto;
+    min-height: 100vh;
+}

@@ -1,0 +1,28 @@
+#home-page{
+    width: 100vw;
+    height: 100vh;
+}
+#home-page-image{
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -100;
+    filter: opacity(0.35);
+}
+#home-page-title-parent{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: grid;
+    place-items: center;
+}
+#home-page-title-div{
+    width: 40%;
+}
+#home-page-title{
+    font-size: 100px;
+    font-weight: 700;
+}
+#home-page-description{
+    color: var(--bs-gray-400);
+}

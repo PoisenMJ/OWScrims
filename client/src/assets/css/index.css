@@ -1,0 +1,128 @@
+.scrim-left-team {
+    background-color: rgba(217, 100, 87, 0.5) !important;
+}
+
+.scrim-best-of-selected {
+    filter: opacity(0.4);
+}
+
+.create-scrim-image{
+    transition: .15s;
+    cursor: pointer;
+}
+.create-scrim-image:hover {
+    filter: opacity(0.55);
+}
+.create-scrim-image.picked {
+    filter: opacity(0.3)!important;
+}
+
+#save-profile {
+    width: 100%;
+}
+
+.scrim-player-name {
+    width: auto;
+    max-width: 60%;
+}
+
+.scrim-right-team {
+    background-color: rgba(85, 103, 228, 0.5) !important;
+}
+
+.scrim-player {
+    padding: 8px 6px;
+    cursor: pointer;
+}
+
+.scrim-empty-role {
+    filter: opacity(0.5);
+}
+
+.scrim-empty-role:hover {
+    filter: opacity(0.7);
+}
+
+.scrim-empty-role-title {
+    color: rgb(220, 220, 220);
+}
+
+.scrim-empty-role-description {
+    color: rgb(190, 190, 190);
+}
+
+.leave-scrim-btn:hover {
+    transition: 0.15s !important;
+    cursor: pointer;
+}
+
+.grandmaster-color {
+    color: #c2bb99;
+}
+
+.master-color {
+    color: #c2bb99;
+}
+
+.diamond-color {
+    color: #ae99c2;
+}
+
+.platinum-color {
+    color: #bfbfbf;
+}
+
+.gold-color {
+    color: #bfbfbf;
+}
+.battle-tag-number {
+    color: grey;
+}
+
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.role-queue-icon.role-full {
+    filter: opacity(0.4);
+}
+
+.diamond-scrim {
+    background: rgba(154, 121, 166, 0.5);
+}
+
+.diamond-scrim-maps {
+    color: #ae99c2;
+}
+
+.master-scrim {
+    background-color: rgba(166, 153, 121, 0.5);
+}
+
+.master-scrim-maps {
+    color: #c2bb99;
+}
+
+.grandmaster-scrim {
+    background-color: rgba(217, 176, 78, 0.5);
+}
+
+.grandmaster-scrim-maps {
+    color: #e3d282;
+}
+
+.platinum-scrim {
+    background-color: rgba(177, 177, 177, 0.42);
+}
+
+.platinum-scrim-maps {
+    color: #bfbfbf;
+}
+
+.gold-scrim {
+    background-color: rgba(133, 133, 100, 0.3);
+}
+
+.gold-scrim-maps {
+    color: #bfbfbf;
+}

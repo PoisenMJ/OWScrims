@@ -1,0 +1,13 @@
+#navbar{
+    padding: 25px;
+}
+#nav{
+    padding-right: 20px;
+}
+.navbar-link-text{
+    color: white!important;
+    transition: .15s;
+}
+.navbar-link-text:hover{
+    color: rgb(225,225,225)!important;
+}
