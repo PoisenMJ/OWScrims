@@ -6,12 +6,13 @@ import Support from '../../assets/images/support-dark.png';
 import Dps from '../../assets/images/damage-dark.png';
 import Tank from '../../assets/images/tank-dark.png';
 
-import { getAllScrims } from '../../controllers/scrim';
+import { getAllScrims, joinPrivateScrim } from '../../controllers/scrim';
 import { srToRank, roundedToFixed, checkRoleSlotsLeft, rangeToRank } from '../../util/overwatchUtil';
 import { useNavigate } from 'react-router';
 
 const ScrimList = () => {
     let navigate = useNavigate();
+    const [privateCode, setPrivateCode] = useState('');
     const [scrims, setScrims] = useState([]);
     const [filteredScrims, setFilteredScrims] = useState([]);
     const [filters, setFilters] = useState({
@@ -27,7 +28,15 @@ const ScrimList = () => {
             setFilteredScrims(res.scrims);
         }
         fetchScrims();
-    }, [])
+    }, []);
+
+    const fetchJoinPrivateScrim = async (event, code) => {
+        if(code.length > 5){
+            var res = await joinPrivateScrim(code);
+            if(res.success) navigate(`/scrims/${res.scrimID}`);
+            // ! ELSE FLASH DOESN't EXIST
+        }
+    }
     
     const filterListByMap = (event, map) => {
         // IF IN FILTER REMOVE IT
@@ -144,8 +153,8 @@ const ScrimList = () => {
                         </Col>
                     </Row>
                     <Col className="d-lg-flex justify-content-lg-end align-items-lg-center">
-                        <Button variant="secondary" size="sm" style={{marginRight: "5px"}}>Join</Button>
-                        <input type="text" placeholder="Private code..."/>
+                        <Button variant="secondary" size="sm" style={{marginRight: "5px"}} onClick={(event) => fetchJoinPrivateScrim(event, privateCode)}>Join</Button>
+                        <input type="text" onChange={(event) => setPrivateCode(event.target.value)} placeholder="Private code..."/>
                     </Col>
                     <Col className="col-auto d-xl-flex ms-auto justify-content-xl-center align-items-xl-center" style={{padding: "5px 20px 5px 20px"}}>
                         <Button variant="success" className="d-xl-flex" style={{borderRadius: ".2rem"}} onClick={navigateToCreateScrim}>CREATE</Button>

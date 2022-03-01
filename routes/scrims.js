@@ -36,9 +36,18 @@ router.get("/scrim/:scrimID", (req, res, next) => {
 })
 
 router.get("/all", (req, res, next) => {
-    Scrim.find({}).populate({ path: 'scrim.team_1', strictPopulate: false }).then((scrims, err) => {
+    Scrim.find({public: true}).populate({ path: 'scrim.team_1', strictPopulate: false }).then((scrims, err) => {
         if(err) return res.json({ success: false });
         return res.json({ success: true, scrims });
+    })
+})
+
+router.post("/private", (req, res, next) => {
+    var privateCode = req.body.privateCode;
+    Scrim.findOne({ privateCode: privateCode }).then((scrim, err) => {
+        if(err) return res.json({ success: false });
+        if(!scrim) return res.json({ success: false });
+        else return res.json({ success: true, scrimID: scrim._id });
     })
 })
 

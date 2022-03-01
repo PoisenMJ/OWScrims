@@ -10,7 +10,8 @@ const formTypes = {
     PUBLIC: "public",
     MAPS: "maps",
     BO: "bestOf",
-    REGION: "region"
+    REGION: "region",
+    PRIVATE_CODE: "privateCode"
 }
 
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
     maxSR: 5000,
     public: true,
     bestOf: 1,
-    region: "NA (EAST)"
+    region: "NA (EAST)",
+    privateCode: ""
 };
 
 const reducer = (state, action) => {
@@ -33,6 +35,8 @@ const reducer = (state, action) => {
             return {...state, bestOf: action.value};
         case formTypes.REGION:
             return {...state, region: action.value};
+        case formTypes.PRIVATE_CODE:
+            return {...state, privateCode: action.value};
     }
 }
 
@@ -77,7 +81,8 @@ const CreateScrim = () => {
             public: state.public,
             bestOf: state.bestOf,
             region: state.region,
-            maps: maps
+            maps: maps,
+            privateCode: state.privateCode
         }
         var response = await createScrim(battletag, token, jsonData);
         if(response.success){
@@ -98,8 +103,15 @@ const CreateScrim = () => {
                                 <input type="number" min={2000} max={5000} defaultValue={state.minSR} step={100} onChange={event => inputUpdate(formTypes.MINSR, event.target.value)}/>
                             </div>
                         </Col>
-                        <Col className="col-4 text-center mt-auto"><span className="m-auto justify-content-xl-center" style={{fontSize: "50px"}}>SR</span>
-                            <div className="form-check form-switch d-lg-flex justify-content-lg-center"><input className="form-check-input" type="checkbox" defaultChecked={state.public} onChange={event => inputUpdate(formTypes.PUBLIC, event.target.checked)}/><label className="form-check-label" htmlFor="formCheck-1" style={{color: "var(--bs-gray-500)", paddingLeft: "5px", paddingTop: "1px"}}>PUBLIC</label></div>
+                        <Col className="col-4 text-center mt-auto">
+                            <span className="m-auto justify-content-xl-center" style={{fontSize: "50px"}}>SR</span>
+                            <div className="form-check form-switch d-lg-flex justify-content-lg-center">
+                                <input className="form-check-input" type="checkbox" defaultChecked={state.public} onChange={event => inputUpdate(formTypes.PUBLIC, event.target.checked)}/>
+                                <label className="form-check-label" htmlFor="formCheck-1" style={{color: "var(--bs-gray-500)", paddingLeft: "5px", paddingTop: "1px"}}>PUBLIC</label>
+                            </div>
+                            {!state.public &&
+                                <input required type="text" minLength={6} placeholder="Private code.." onChange={event => inputUpdate(formTypes.PRIVATE_CODE, event.target.value)}/>
+                            }
                         </Col>
                         <Col className="col-4 d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center">
                             <div className="d-inline-flex flex-column"><span style={{color: "var(--bs-gray-500)", textAlign: "center"}}>MAX</span>
