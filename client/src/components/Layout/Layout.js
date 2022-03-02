@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 import "./Layout.css";
 
 import Navbar from '../Navbar';
+import FlashComponent from '../Flash';
 import { AuthVerify } from '../../services/Auth';
 
 function Layout(){
@@ -13,6 +14,7 @@ function Layout(){
             height: "auto",
             minHeight: "100vh",
         }}>
+            <FlashComponent/>
             <AuthVerify/>
             <Row><Col><Navbar/></Col></Row>
             <Outlet/>

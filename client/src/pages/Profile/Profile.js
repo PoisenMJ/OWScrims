@@ -3,7 +3,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 import TANK from '../../assets/images/tank.png';
 import DPS from '../../assets/images/damage.png';
 import SUPPORT from '../../assets/images/support.png';
-import { getProfile } from '../../controllers/user';
+import { getProfile, updateSR } from '../../controllers/user';
 import { AuthContext } from '../../services/Auth';
 
 const Profile = () => {
@@ -13,7 +13,7 @@ const Profile = () => {
     const [supportSR, setSupportSR] = useState(0);
     const [image, setImage] = useState('');
 
-    const updateSR = (event, role) => {
+    const updateSRInput = (event, role) => {
         switch (role) {
             case "tank":
                 setTankSR(event.target.value);
@@ -38,7 +38,12 @@ const Profile = () => {
             }
         }
         fetchProfile();
-    }, [])
+    }, []);
+
+    const fetchUpdateSR = async () => {
+        var d = await updateSR(battletag, token, { tankSR, dpsSR, supportSR });
+        if(d.success) console.log('success');
+    }
 
     return (
         <>
@@ -57,20 +62,22 @@ const Profile = () => {
                 <Col className="col-auto mx-auto justify-content-xl-center align-items-xl-center">
                     <Row>
                         <Col className="col-auto d-xl-flex justify-content-xl-center"><img src={TANK} style={{width: "40px"}}/></Col>
-                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" value={tankSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
+                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" onChange={event => updateSRInput(event, "tank")} value={tankSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
                     </Row>
                     <Row>
                         <Col className="col-auto d-xl-flex justify-content-xl-center"><img src={DPS} style={{width: "40px"}}/></Col>
-                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" value={dpsSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
+                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" onChange={event => updateSRInput(event, "dps")} value={dpsSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
                     </Row>
                     <Row>
                         <Col className="col-auto d-xl-flex justify-content-xl-center"><img src={SUPPORT} style={{width: "40px"}}/></Col>
-                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" value={supportSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
+                        <Col className="d-xl-flex justify-content-xl-center align-items-xl-center"><input type="number" onChange={event => updateSRInput(event, "support")} value={supportSR} style={{paddingRight: "8px", paddingLeft: "8px"}}/></Col>
                     </Row>
                 </Col>
             </Row>
             <Row className="g-0">
-                <Col className="col-5 col-sm-5 col-md-4 col-lg-3 col-xl-3 col-xxl-2 d-xl-flex mx-auto justify-content-xl-center align-items-xl-center"><Button className="block-btn" id="save-profile" style={{backgroundColor: "var(--bs-blue)", color: "var(--bs-gray-100)"}}>SAVE</Button></Col>
+                <Col className="col-5 col-sm-5 col-md-4 col-lg-3 col-xl-3 col-xxl-2 d-xl-flex mx-auto justify-content-xl-center align-items-xl-center">
+                    <Button className="block-btn" onClick={fetchUpdateSR} id="save-profile" style={{backgroundColor: "var(--bs-blue)", color: "var(--bs-gray-100)"}}>SAVE</Button>
+                </Col>
             </Row>
         </>
     )

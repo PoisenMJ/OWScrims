@@ -168,7 +168,7 @@ const ScrimList = () => {
                             var averageSR = Math.round((parseInt(scrim.sr_lower) + parseInt(scrim.sr_higher)) / 2);
                             var slotsLeft = checkRoleSlotsLeft(scrim.team_1, scrim.team_2);
                             return (
-                                <ListGroup.Item className={srToRank(averageSR)+"-scrim"} style={{margin: "0 0 10px 0", borderRadius: ".3rem"}} key={index}>
+                                <ListGroup.Item onClick={() => navigate(`/scrims/${scrim._id}`)} className={srToRank(averageSR)+"-scrim scrim"} style={{margin: "0 0 10px 0", borderRadius: ".3rem"}} key={index}>
                                     <div className="d-flex">
                                         <Row className="row-cols-5" style={{width: "100%"}}>
                                             <Col className="col-auto d-md-flex d-lg-flex d-xl-flex align-items-center align-items-sm-center justify-content-md-center align-items-md-center align-items-lg-center justify-content-xl-center align-items-xl-center align-items-xxl-center">

@@ -11,4 +11,18 @@ async function getProfile(user, token){
     return json;
 }
 
-export { getProfile };
+async function updateSR(user, token, data){
+    var res = await fetch("/users/update", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            user,
+            token,
+            data
+        })
+    });
+    var json = await res.json();
+    return json;
+}
+
+export { getProfile, updateSR };

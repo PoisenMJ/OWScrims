@@ -13,6 +13,7 @@ import { getScrim } from '../../controllers/scrim';
 import { AuthContext } from '../../services/Auth';
 
 import { srToRank, roundedToFixed } from '../../util/overwatchUtil';
+import { Flash } from '../../components/Flash';
 
 const teamArray = ['slot1', 'slot2', 'slot3', 'slot4', 'slot5', 'slot6'];
 
@@ -32,6 +33,7 @@ const Scrim = () => {
     });
 
     useEffect(() => {
+        Flash("HELLO", "dark");
         const fetchScrim = async () => {
             var data = await getScrim(scrim_id);
             console.log(data);
